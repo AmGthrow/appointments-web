@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
-import config from "../config";
+import { getAppointments } from "../api/appointments";
 
 function Calendar() {
   const [appointments, setAppointments] = useState(null);
 
   useEffect(() => {
-    fetch(`${config.API_URL}/appointments/`) // Adjust the URL to your Django endpoint
-      .then((response) => response.json())
-      .then((data) => setAppointments(data))
-      .catch((error) => console.error("Error:", error));
+    getAppointments().then((appointments) => setAppointments(appointments));
   }, []);
 
   return (
