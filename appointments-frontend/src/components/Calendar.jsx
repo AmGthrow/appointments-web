@@ -3,19 +3,13 @@ import { getAppointments } from "../api/appointments";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
 
 function Calendar() {
-  const [appointments, setAppointments] = useState(null);
-
-  useEffect(() => {
-    getAppointments().then((appointments) => setAppointments(appointments));
-  }, []);
-
   return (
     <>
       <FullCalendar
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        schedulerLicenseKey={"CC-Attribution-NonCommercial-NoDerivatives"}
+        plugins={[dayGridPlugin, timeGridPlugin]}
         initialView={"timeGridWeek"}
         headerToolbar={{
           start: "today prev,next",
@@ -23,6 +17,7 @@ function Calendar() {
           end: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         height={"90vh"}
+        events={getAppointments}
       />
     </>
   );
