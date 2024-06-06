@@ -3,9 +3,12 @@ import { getAppointments } from "../api/appointments";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import AppointmentModal from "./AppointmentDetails";
 
 function Calendar() {
   const [appointments, setAppointments] = useState([]);
+  const [appointmentFocused, setAppointmentFocused] = useState();
+  const [viewAssessmentDetails, setViewAssessmentDetails] = useState(false);
 
   useEffect(() => {
     getAppointments().then((appointments) => {
@@ -17,16 +20,17 @@ function Calendar() {
     const appointmentFromAPI = appointments.find(
       (appointment) => appointment.id == clickInfo.event.id,
     );
-    alert(
-      `${appointmentFromAPI.id}
-${appointmentFromAPI.start_time} - ${appointmentFromAPI.end_time}
-Patients: ${appointmentFromAPI.patients}
-Comments: ${appointmentFromAPI.comments}`,
-    );
+    setAppointmentFocused(appointmentFromAPI);
+    setViewAssessmentDetails(true);
   }
 
   return (
     <>
+      <AppointmentModal
+        appointment={appointmentFocused}
+        open={viewAssessmentDetails}
+        setOpen={setViewAssessmentDetails}
+      />
       <FullCalendar
         schedulerLicenseKey={"CC-Attribution-NonCommercial-NoDerivatives"}
         plugins={[dayGridPlugin, timeGridPlugin]}
