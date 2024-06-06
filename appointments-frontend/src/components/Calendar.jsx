@@ -13,6 +13,18 @@ function Calendar() {
     });
   }, []);
 
+  function handleEventClick(clickInfo) {
+    const appointmentFromAPI = appointments.find(
+      (appointment) => appointment.id == clickInfo.event.id,
+    );
+    alert(
+      `${appointmentFromAPI.id}
+${appointmentFromAPI.start_time} - ${appointmentFromAPI.end_time}
+Patients: ${appointmentFromAPI.patients}
+Comments: ${appointmentFromAPI.comments}`,
+    );
+  }
+
   return (
     <>
       <FullCalendar
@@ -31,6 +43,7 @@ function Calendar() {
           end: appointment.end_time,
           title: appointment.patients.join(","),
         }))}
+        eventClick={handleEventClick}
       />
     </>
   );
