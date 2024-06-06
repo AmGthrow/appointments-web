@@ -5,6 +5,14 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 
 function Calendar() {
+  const [appointments, setAppointments] = useState([]);
+
+  useEffect(() => {
+    getAppointments().then((appointments) => {
+      setAppointments(appointments);
+    });
+  }, []);
+
   return (
     <>
       <FullCalendar
@@ -17,7 +25,12 @@ function Calendar() {
           end: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         height={"90vh"}
-        events={getAppointments}
+        events={appointments.map((appointment) => ({
+          id: appointment.id,
+          start: appointment.start_time,
+          end: appointment.end_time,
+          title: appointment.patients.join(","),
+        }))}
       />
     </>
   );
