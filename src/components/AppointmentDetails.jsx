@@ -1,4 +1,5 @@
-import { Box, Modal, Typography } from "@mui/material";
+import { Box, Button, Modal, Typography } from "@mui/material";
+import { deleteAppointment } from "../api/appointments";
 
 const style = {
   position: "absolute",
@@ -10,9 +11,7 @@ const style = {
   p: 4,
 };
 
-export default function AppointmentModal({ appointment, open, setOpen }) {
-  const handleClose = () => setOpen(false);
-
+function Appointment({ appointment, handleDelete }) {
   const getTimeFromISO = (s) => {
     const dateObj = new Date(s);
     return dateObj.toLocaleTimeString([], {
@@ -22,17 +21,39 @@ export default function AppointmentModal({ appointment, open, setOpen }) {
   };
 
   return (
+    <>
+      <Typography>
+        Time: {getTimeFromISO(appointment.start_time)} -{" "}
+        {getTimeFromISO(appointment.end_time)}
+      </Typography>
+      <Typography>Patients: {appointment.patients.join(", ")}</Typography>
+      <Typography>Comments: {appointment.comments}</Typography>
+      <Button color={"error"} variant={"text"} onClick={handleDelete}>
+        Delete
+      </Button>
+    </>
+  );
+}
+
+export default function AppointmentModal({
+  appointment,
+  deleteAppointment,
+  open,
+  setOpen,
+}) {
+  const handleClose = () => setOpen(false);
+  const handleDelete = () => {
+    deleteAppointment(appointment.id);
+    handleClose();
+  };
+
+  return (
     <Modal open={open} onClose={handleClose}>
-      {appointment && (
-        <Box sx={style}>
-          <Typography>
-            Time: {getTimeFromISO(appointment.start_time)} -{" "}
-            {getTimeFromISO(appointment.end_time)}
-          </Typography>
-          <Typography>Patients: {appointment.patients.join(", ")}</Typography>
-          <Typography>Comments: {appointment.comments}</Typography>
-        </Box>
-      )}
+      <Box sx={style}>
+        {appointment && (
+          <Appointment appointment={appointment} handleDelete={handleDelete} />
+        )}
+      </Box>
     </Modal>
   );
 }
