@@ -30,6 +30,7 @@ function Calendar() {
     <>
       <AppointmentModal
         appointment={appointmentFocused}
+        setAppointment={setAppointmentFocused}
         open={viewAssessmentDetails}
         setOpen={setViewAssessmentDetails}
       />

@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { Box, Button, Modal, TextField } from "@mui/material";
-import { deleteAppointment } from "../api/appointments";
+import { deleteAppointment, editAppointment } from "../api/appointments";
 import { useEffect, useState } from "react";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import MultipleSelect from "./MultipleSelect";
@@ -16,8 +16,12 @@ const style = {
   p: 4,
 };
 
-function Appointment({ appointment, handleDelete }) {
-  const [appointmentDetails, setAppointmentDetails] = useState(appointment);
+function Appointment({
+  appointment,
+  setAppointment,
+  handleDelete,
+  handleSave,
+}) {
   const [patients, setPatients] = useState([]);
 
   useEffect(() => {
@@ -45,9 +49,9 @@ function Appointment({ appointment, handleDelete }) {
       >
         <DateTimePicker
           label={"Start time"}
-          value={dayjs(appointmentDetails.start_time)}
+          value={dayjs(appointment.start_time)}
           onChange={(newValue) =>
-            setAppointmentDetails((prev) => ({
+            setAppointment((prev) => ({
               ...prev,
               start_time: newValue,
             }))
@@ -55,9 +59,9 @@ function Appointment({ appointment, handleDelete }) {
         />
         <DateTimePicker
           label={"End time"}
-          value={dayjs(appointmentDetails.end_time)}
+          value={dayjs(appointment.end_time)}
           onChange={(newValue) =>
-            setAppointmentDetails((prev) => ({
+            setAppointment((prev) => ({
               ...prev,
               end_time: newValue,
             }))
@@ -67,9 +71,9 @@ function Appointment({ appointment, handleDelete }) {
       <MultipleSelect
         label={"Patients"}
         choices={patients}
-        value={appointmentDetails.patients}
+        value={appointment.patients}
         onChange={(event) =>
-          setAppointmentDetails((prev) => ({
+          setAppointment((prev) => ({
             ...prev,
             patients: event.target.value,
           }))
@@ -78,9 +82,9 @@ function Appointment({ appointment, handleDelete }) {
       <TextField
         variant="filled"
         label="Comments"
-        value={appointmentDetails.comments}
+        value={appointment.comments}
         onChange={(event) =>
-          setAppointmentDetails((prev) => ({
+          setAppointment((prev) => ({
             ...prev,
             comments: event.target.value,
           }))
@@ -88,17 +92,40 @@ function Appointment({ appointment, handleDelete }) {
         multiline={true}
         maxRows={10}
       />
-      <Button color={"error"} variant={"text"} onClick={handleDelete}>
-        Delete
-      </Button>
+
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          alignSelf: "flex-end",
+          gap: 2,
+        }}
+      >
+        <Button color="error" variant="text" onClick={handleDelete}>
+          Delete
+        </Button>
+        <Button variant="contained" onClick={handleSave}>
+          Save
+        </Button>
+      </Box>
     </Box>
   );
 }
 
-export default function AppointmentModal({ appointment, open, setOpen }) {
+export default function AppointmentModal({
+  appointment,
+  setAppointment,
+  open,
+  setOpen,
+}) {
   const handleClose = () => setOpen(false);
   const handleDelete = () => {
     deleteAppointment(appointment.id);
+    handleClose();
+  };
+  const handleSave = () => {
+    editAppointment(appointment);
     handleClose();
   };
 
@@ -106,7 +133,12 @@ export default function AppointmentModal({ appointment, open, setOpen }) {
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         {appointment && (
-          <Appointment appointment={appointment} handleDelete={handleDelete} />
+          <Appointment
+            appointment={appointment}
+            setAppointment={setAppointment}
+            handleDelete={handleDelete}
+            handleSave={handleSave}
+          />
         )}
       </Box>
     </Modal>
