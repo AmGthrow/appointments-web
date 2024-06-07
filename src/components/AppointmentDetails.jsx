@@ -7,6 +7,7 @@ import MultipleSelect from "./MultipleSelect";
 import { getPatients } from "../api/patients";
 
 const style = {
+  minWidth: 300,
   position: "absolute",
   top: "50%",
   left: "50%",
