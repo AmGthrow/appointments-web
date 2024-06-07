@@ -6,6 +6,17 @@ export async function getAppointments() {
     .catch((error) => console.error("Error:", error));
 }
 
+export async function addAppointment(appointment) {
+  return fetch(`${config.API_URL}/appointments/`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(appointment),
+  })
+    .then((response) => response.json())
+    .catch((error) => console.error("Error:", error));
+}
 export async function deleteAppointment(id) {
   return fetch(`${config.API_URL}/appointments/${id}/`, { method: "DELETE" })
     .then((response) => response.json())
