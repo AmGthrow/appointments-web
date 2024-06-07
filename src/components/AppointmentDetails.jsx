@@ -3,7 +3,7 @@ import { Box, Button, Modal, TextField } from "@mui/material";
 import { deleteAppointment } from "../api/appointments";
 import { useEffect, useState } from "react";
 import { DateTimePicker } from "@mui/x-date-pickers";
-import MultipleSelectChip from "./MultipleSelectChip";
+import MultipleSelect from "./MultipleSelect";
 import { getPatients } from "../api/patients";
 
 const style = {
@@ -64,7 +64,7 @@ function Appointment({ appointment, handleDelete }) {
           }
         />
       </Box>
-      <MultipleSelectChip
+      <MultipleSelect
         label={"Patients"}
         choices={patients}
         value={appointmentDetails.patients}
