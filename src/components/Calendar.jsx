@@ -49,6 +49,7 @@ function Calendar() {
           center: "title",
           end: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
+        allDaySlot={false}
         height={"90vh"}
         events={appointments.map((appointment) => ({
           id: appointment.id,
