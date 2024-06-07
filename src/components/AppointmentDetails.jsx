@@ -120,12 +120,12 @@ export default function AppointmentModal({
   setOpen,
 }) {
   const handleClose = () => setOpen(false);
-  const handleDelete = () => {
-    deleteAppointment(appointment.id);
+  const handleDelete = async () => {
+    await deleteAppointment(appointment.id);
     handleClose();
   };
-  const handleSave = () => {
-    editAppointment(appointment);
+  const handleSave = async () => {
+    await editAppointment(appointment);
     handleClose();
   };
 
