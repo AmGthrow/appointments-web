@@ -3,6 +3,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import PropTypes from "prop-types";
 
 export default function MultipleSelect({ label, choices, value, onChange }) {
   return (
@@ -27,3 +28,10 @@ export default function MultipleSelect({ label, choices, value, onChange }) {
     </div>
   );
 }
+
+MultipleSelect().PropTypes = {
+  label: PropTypes.string,
+  choices: PropTypes.arrayOf(PropTypes.string),
+  value: PropTypes.arrayOf(PropTypes.string),
+  oncanplay: PropTypes.func,
+};

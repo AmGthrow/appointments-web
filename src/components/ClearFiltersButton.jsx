@@ -1,5 +1,6 @@
 import Fab from "@mui/material/Fab";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import PropTypes from "prop-types";
 
 export default function ClearFiltersButton({ onClick }) {
   return (
@@ -9,3 +10,6 @@ export default function ClearFiltersButton({ onClick }) {
     </Fab>
   );
 }
+ClearFiltersButton.PropTypes = {
+  onClick: PropTypes.func,
+};
