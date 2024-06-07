@@ -1,4 +1,5 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
+import { deleteAppointment } from "../api/appointments";
 
 const style = {
   position: "absolute",
@@ -34,12 +35,7 @@ function Appointment({ appointment, handleDelete }) {
   );
 }
 
-export default function AppointmentModal({
-  appointment,
-  deleteAppointment,
-  open,
-  setOpen,
-}) {
+export default function AppointmentModal({ appointment, open, setOpen }) {
   const handleClose = () => setOpen(false);
   const handleDelete = () => {
     deleteAppointment(appointment.id);

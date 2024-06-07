@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { deleteAppointment, getAppointments } from "../api/appointments";
+import { getAppointments } from "../api/appointments";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
@@ -11,18 +11,12 @@ function Calendar() {
   const [viewAssessmentDetails, setViewAssessmentDetails] = useState(false);
 
   useEffect(() => {
-    getAppointments().then((appointments) => {
-      setAppointments(appointments);
-    });
-  }, [appointments]);
-
-  function handleDelete(id) {
-    deleteAppointment(id);
-    const updatedAppointments = appointments.filter(
-      (appointment) => appointment.id !== id,
-    );
-    setAppointments(updatedAppointments);
-  }
+    if (!viewAssessmentDetails) {
+      getAppointments().then((appointments) => {
+        setAppointments(appointments);
+      });
+    }
+  }, [viewAssessmentDetails]);
 
   function handleEventClick(clickInfo) {
     const appointmentFromAPI = appointments.find(
@@ -36,7 +30,6 @@ function Calendar() {
     <>
       <AppointmentModal
         appointment={appointmentFocused}
-        deleteAppointment={handleDelete}
         open={viewAssessmentDetails}
         setOpen={setViewAssessmentDetails}
       />
