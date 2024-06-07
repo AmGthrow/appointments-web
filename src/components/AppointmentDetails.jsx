@@ -130,9 +130,16 @@ export default function AppointmentModal({
     handleClose();
   };
   const handleSave = async () => {
-    if (appointment.id) await editAppointment(appointment);
-    else await addAppointment(appointment);
-    handleClose();
+    try {
+      if (appointment.id) {
+        await editAppointment(appointment);
+      } else {
+        await addAppointment(appointment);
+      }
+      handleClose();
+    } catch (error) {
+      alert(`Error: ${error.message}`);
+    }
   };
 
   return (

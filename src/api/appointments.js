@@ -18,8 +18,19 @@ export async function addAppointment(appointment) {
     },
     body: JSON.stringify(appointment),
   })
-    .then((response) => response.json())
-    .catch((error) => console.error("Error:", error));
+    .then(async (response) => {
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(
+          error[0] || error["non_field_errors"] || "An error occurred",
+        );
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      throw error;
+    });
 }
 export async function deleteAppointment(id) {
   return fetch(`${config.API_URL}/appointments/${id}/`, { method: "DELETE" })
@@ -35,6 +46,17 @@ export async function editAppointment(appointment) {
     },
     body: JSON.stringify(appointment),
   })
-    .then((response) => response.json())
-    .catch((error) => console.error("Error:", error));
+    .then(async (response) => {
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(
+          error[0] || error["non_field_errors"] || "An error occurred",
+        );
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+      throw error;
+    });
 }
