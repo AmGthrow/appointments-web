@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-function Appointment({
+function AppointmentForm({
   appointment,
   setAppointment,
   handleDelete,
@@ -125,10 +125,12 @@ export default function AppointmentModal({
   setOpen,
 }) {
   const handleClose = () => setOpen(false);
+
   const handleDelete = async () => {
     await deleteAppointment(appointment.id);
     handleClose();
   };
+
   const handleSave = async () => {
     try {
       if (appointment.id) {
@@ -146,7 +148,7 @@ export default function AppointmentModal({
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         {appointment && (
-          <Appointment
+          <AppointmentForm
             appointment={appointment}
             setAppointment={setAppointment}
             handleDelete={handleDelete}

@@ -50,6 +50,7 @@ function Calendar() {
     setAppointmentFocused(appointmentFromAPI);
     setViewAssessmentDetails(true);
   }
+
   function handleAddAppointment() {
     const now = new Date();
     const appointmentDuration = 1000 * 60 * 60; // 1 hour from now
@@ -62,6 +63,7 @@ function Calendar() {
     setAppointmentFocused(newAppointment);
     setViewAssessmentDetails(true);
   }
+
   function handleClearDateFilters() {
     setAppointmentStartDate();
     setAppointmentEndDate();
