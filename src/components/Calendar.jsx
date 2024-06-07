@@ -6,19 +6,42 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import AppointmentModal from "./AppointmentDetails";
 import AddAppointmentButton from "./AddAppointmentButton";
 import dayjs from "dayjs";
+import { DatePicker } from "@mui/x-date-pickers";
+import { Box } from "@mui/material";
+import ClearFiltersButton from "./ClearFiltersButton";
+
+const style = {
+  controlButtons: {
+    position: "fixed",
+    bottom: 20,
+    right: 20,
+    borderRadius: "50px",
+    display: "flex",
+    alignItems: "center",
+    gap: 2,
+    zIndex: 100,
+  },
+  datePicker: {
+    backgroundColor: "#424242",
+  },
+};
 
 function Calendar() {
   const [appointments, setAppointments] = useState([]);
   const [appointmentFocused, setAppointmentFocused] = useState();
+  const [appointmentStartDate, setAppointmentStartDate] = useState();
+  const [appointmentEndDate, setAppointmentEndDate] = useState();
   const [viewAssessmentDetails, setViewAssessmentDetails] = useState(false);
 
   useEffect(() => {
     if (!viewAssessmentDetails) {
-      getAppointments().then((appointments) => {
-        setAppointments(appointments);
-      });
+      getAppointments(appointmentStartDate, appointmentEndDate).then(
+        (appointments) => {
+          setAppointments(appointments);
+        },
+      );
     }
-  }, [viewAssessmentDetails]);
+  }, [viewAssessmentDetails, appointmentStartDate, appointmentEndDate]);
 
   function handleEventClick(clickInfo) {
     const appointmentFromAPI = appointments.find(
@@ -39,6 +62,10 @@ function Calendar() {
     setAppointmentFocused(newAppointment);
     setViewAssessmentDetails(true);
   }
+  function handleClearDateFilters() {
+    setAppointmentStartDate();
+    setAppointmentEndDate();
+  }
 
   return (
     <>
@@ -48,7 +75,38 @@ function Calendar() {
         open={viewAssessmentDetails}
         setOpen={setViewAssessmentDetails}
       />
-      <AddAppointmentButton onClick={handleAddAppointment} />
+      <Box sx={style.controlButtons}>
+        <DatePicker
+          sx={style.datePicker}
+          label="Filter from this date..."
+          format="YYYY/MM/DD"
+          variant="filled"
+          value={appointmentStartDate ? dayjs(appointmentStartDate) : null}
+          slotProps={{
+            field: {
+              readOnly: true,
+            },
+          }}
+          onAccept={(newValue) =>
+            setAppointmentStartDate(newValue.toISOString())
+          }
+        />
+        <DatePicker
+          sx={style.datePicker}
+          label="Filter until this date..."
+          format="YYYY/MM/DD"
+          variant="filled"
+          value={appointmentEndDate ? dayjs(appointmentEndDate) : null}
+          slotProps={{
+            field: {
+              readOnly: true,
+            },
+          }}
+          onAccept={(newValue) => setAppointmentEndDate(newValue.toISOString())}
+        />
+        <ClearFiltersButton onClick={handleClearDateFilters} />
+        <AddAppointmentButton onClick={handleAddAppointment} />
+      </Box>
       <FullCalendar
         schedulerLicenseKey={"CC-Attribution-NonCommercial-NoDerivatives"}
         plugins={[dayGridPlugin, timeGridPlugin]}
@@ -59,7 +117,7 @@ function Calendar() {
           end: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         allDaySlot={false}
-        height={"96vh"}
+        height="95vh"
         events={appointments.map((appointment) => ({
           id: appointment.id,
           start: appointment.start_time,

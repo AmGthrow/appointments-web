@@ -1,7 +1,11 @@
 import config from "../config";
 
-export async function getAppointments() {
-  return fetch(`${config.API_URL}/appointments/`)
+export async function getAppointments(from_date = null, to_date = null) {
+  const urlParams = new URLSearchParams({
+    ...(from_date && { from_date }),
+    ...(to_date && { to_date }),
+  });
+  return fetch(`${config.API_URL}/appointments/?${urlParams.toString()}`)
     .then((response) => response.json())
     .catch((error) => console.error("Error:", error));
 }
