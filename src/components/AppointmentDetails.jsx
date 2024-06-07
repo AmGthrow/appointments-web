@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import MultipleSelect from "./MultipleSelect";
 import { getPatients } from "../api/patients";
-import PropTypes from "prop-types";
 
 const style = {
   minWidth: 300,
@@ -160,17 +159,3 @@ export default function AppointmentModal({
     </Modal>
   );
 }
-
-AppointmentForm.PropTypes = {
-  appointment: PropTypes.object.isRequired,
-  setAppointment: PropTypes.func,
-  handleDelete: PropTypes.func,
-  handleSave: PropTypes.func,
-};
-
-AppointmentModal.PropTypes = {
-  appointment: PropTypes.object,
-  setAppointment: PropTypes.func,
-  open: PropTypes.boolean,
-  setOpen: PropTypes.func,
-};

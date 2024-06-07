@@ -1,6 +1,5 @@
 import Fab from "@mui/material/Fab";
 import AddIcon from "@mui/icons-material/Add";
-import PropTypes from "prop-types";
 
 export default function AddAppointmentButton({ onClick }) {
   return (
@@ -10,7 +9,3 @@ export default function AddAppointmentButton({ onClick }) {
     </Fab>
   );
 }
-
-AddAppointmentButton.PropTypes = {
-  onClick: PropTypes.func,
-};
