@@ -8,6 +8,7 @@ import AddAppointmentButton from "./AddAppointmentButton";
 import dayjs from "dayjs";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Box } from "@mui/material";
+import ClearFiltersButton from "./ClearFiltersButton";
 
 const style = {
   controlButtons: {
@@ -61,6 +62,10 @@ function Calendar() {
     setAppointmentFocused(newAppointment);
     setViewAssessmentDetails(true);
   }
+  function handleClearDateFilters() {
+    setAppointmentStartDate();
+    setAppointmentEndDate();
+  }
 
   return (
     <>
@@ -99,6 +104,7 @@ function Calendar() {
           }}
           onAccept={(newValue) => setAppointmentEndDate(newValue.toISOString())}
         />
+        <ClearFiltersButton onClick={handleClearDateFilters} />
         <AddAppointmentButton onClick={handleAddAppointment} />
       </Box>
       <FullCalendar
@@ -111,7 +117,7 @@ function Calendar() {
           end: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
         allDaySlot={false}
-        height={"96vh"}
+        height="95vh"
         events={appointments.map((appointment) => ({
           id: appointment.id,
           start: appointment.start_time,
