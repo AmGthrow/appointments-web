@@ -7,7 +7,7 @@ export async function getAppointments() {
 }
 
 export async function deleteAppointment(id) {
-  return fetch(`${config.API_URL}/appointments/${id}`, { method: "DELETE" })
+  return fetch(`${config.API_URL}/appointments/${id}/`, { method: "DELETE" })
     .then((response) => response.json())
     .catch((error) => console.error("Error:", error));
 }
