@@ -21,7 +21,7 @@ const style = {
   p: 4,
 };
 
-function Appointment({
+function AppointmentForm({
   appointment,
   setAppointment,
   handleDelete,
@@ -148,7 +148,7 @@ export default function AppointmentModal({
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         {appointment && (
-          <Appointment
+          <AppointmentForm
             appointment={appointment}
             setAppointment={setAppointment}
             handleDelete={handleDelete}
