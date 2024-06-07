@@ -5,6 +5,7 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import AppointmentModal from "./AppointmentDetails";
 import AddAppointmentButton from "./AddAppointmentButton";
+import dayjs from "dayjs";
 
 function Calendar() {
   const [appointments, setAppointments] = useState([]);
@@ -26,6 +27,18 @@ function Calendar() {
     setAppointmentFocused(appointmentFromAPI);
     setViewAssessmentDetails(true);
   }
+  function handleAddAppointment() {
+    const now = new Date();
+    const appointmentDuration = 1000 * 60 * 60; // 1 hour from now
+    const newAppointment = {
+      start_time: dayjs(now),
+      end_time: dayjs(now.getTime() + appointmentDuration),
+      patients: [],
+      comments: "",
+    };
+    setAppointmentFocused(newAppointment);
+    setViewAssessmentDetails(true);
+  }
 
   return (
     <>
@@ -35,7 +48,7 @@ function Calendar() {
         open={viewAssessmentDetails}
         setOpen={setViewAssessmentDetails}
       />
-      <AddAppointmentButton />
+      <AddAppointmentButton onClick={handleAddAppointment} />
       <FullCalendar
         schedulerLicenseKey={"CC-Attribution-NonCommercial-NoDerivatives"}
         plugins={[dayGridPlugin, timeGridPlugin]}
