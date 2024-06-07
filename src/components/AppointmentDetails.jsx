@@ -1,5 +1,4 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
-import { deleteAppointment } from "../api/appointments";
 
 const style = {
   position: "absolute",
