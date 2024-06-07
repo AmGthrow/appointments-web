@@ -1,12 +1,17 @@
 import dayjs from "dayjs";
 import { Box, Button, Modal, TextField } from "@mui/material";
-import { deleteAppointment, editAppointment } from "../api/appointments";
+import {
+  addAppointment,
+  deleteAppointment,
+  editAppointment,
+} from "../api/appointments";
 import { useEffect, useState } from "react";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import MultipleSelect from "./MultipleSelect";
 import { getPatients } from "../api/patients";
 
 const style = {
+  minWidth: 300,
   position: "absolute",
   top: "50%",
   left: "50%",
@@ -125,7 +130,8 @@ export default function AppointmentModal({
     handleClose();
   };
   const handleSave = async () => {
-    await editAppointment(appointment);
+    if (appointment.id) await editAppointment(appointment);
+    else await addAppointment(appointment);
     handleClose();
   };
 
