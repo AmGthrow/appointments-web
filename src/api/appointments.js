@@ -21,7 +21,9 @@ export async function addAppointment(appointment) {
     .then(async (response) => {
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error[0] || "An error occurred");
+        throw new Error(
+          error[0] || error["non_field_errors"] || "An error occurred",
+        );
       }
       return response.json();
     })
@@ -47,7 +49,9 @@ export async function editAppointment(appointment) {
     .then(async (response) => {
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error[0] || "An error occurred");
+        throw new Error(
+          error[0] || error["non_field_errors"] || "An error occurred",
+        );
       }
       return response.json();
     })
