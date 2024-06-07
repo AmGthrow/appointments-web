@@ -1,5 +1,10 @@
-import { Box, Button, Modal, Typography } from "@mui/material";
-import { deleteAppointment } from "../api/appointments";
+import dayjs from "dayjs";
+import { Box, Button, Modal, TextField } from "@mui/material";
+import { deleteAppointment, editAppointment } from "../api/appointments";
+import { useEffect, useState } from "react";
+import { DateTimePicker } from "@mui/x-date-pickers";
+import MultipleSelect from "./MultipleSelect";
+import { getPatients } from "../api/patients";
 
 const style = {
   position: "absolute",
@@ -11,33 +16,106 @@ const style = {
   p: 4,
 };
 
-function Appointment({ appointment, handleDelete }) {
-  const getTimeFromISO = (s) => {
-    const dateObj = new Date(s);
-    return dateObj.toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
+function Appointment({
+  appointment,
+  setAppointment,
+  handleDelete,
+  handleSave,
+}) {
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    getPatients().then((patients) => {
+      setPatients(patients.map((patient) => patient.name));
     });
-  };
+  }, []);
 
   return (
-    <>
-      <Typography>
-        Time: {getTimeFromISO(appointment.start_time)} -{" "}
-        {getTimeFromISO(appointment.end_time)}
-      </Typography>
-      <Typography>Patients: {appointment.patients.join(", ")}</Typography>
-      <Typography>Comments: {appointment.comments}</Typography>
-      <Button color={"error"} variant={"text"} onClick={handleDelete}>
-        Delete
-      </Button>
-    </>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "left",
+        gap: 2,
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          gap: 2,
+        }}
+      >
+        <DateTimePicker
+          label={"Start time"}
+          value={dayjs(appointment.start_time)}
+          onChange={(newValue) =>
+            setAppointment((prev) => ({
+              ...prev,
+              start_time: newValue,
+            }))
+          }
+        />
+        <DateTimePicker
+          label={"End time"}
+          value={dayjs(appointment.end_time)}
+          onChange={(newValue) =>
+            setAppointment((prev) => ({
+              ...prev,
+              end_time: newValue,
+            }))
+          }
+        />
+      </Box>
+      <MultipleSelect
+        label={"Patients"}
+        choices={patients}
+        value={appointment.patients}
+        onChange={(event) =>
+          setAppointment((prev) => ({
+            ...prev,
+            patients: event.target.value,
+          }))
+        }
+      />
+      <TextField
+        variant="filled"
+        label="Comments"
+        value={appointment.comments}
+        onChange={(event) =>
+          setAppointment((prev) => ({
+            ...prev,
+            comments: event.target.value,
+          }))
+        }
+        multiline={true}
+        maxRows={10}
+      />
+
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          alignSelf: "flex-end",
+          gap: 2,
+        }}
+      >
+        <Button color="error" variant="text" onClick={handleDelete}>
+          Delete
+        </Button>
+        <Button variant="contained" onClick={handleSave}>
+          Save
+        </Button>
+      </Box>
+    </Box>
   );
 }
 
 export default function AppointmentModal({
   appointment,
-  deleteAppointment,
+  setAppointment,
   open,
   setOpen,
 }) {
@@ -46,12 +124,21 @@ export default function AppointmentModal({
     deleteAppointment(appointment.id);
     handleClose();
   };
+  const handleSave = () => {
+    editAppointment(appointment);
+    handleClose();
+  };
 
   return (
     <Modal open={open} onClose={handleClose}>
       <Box sx={style}>
         {appointment && (
-          <Appointment appointment={appointment} handleDelete={handleDelete} />
+          <Appointment
+            appointment={appointment}
+            setAppointment={setAppointment}
+            handleDelete={handleDelete}
+            handleSave={handleSave}
+          />
         )}
       </Box>
     </Modal>
