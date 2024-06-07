@@ -1,9 +1,10 @@
 import dayjs from "dayjs";
 import { Box, Button, Modal, TextField } from "@mui/material";
 import { deleteAppointment } from "../api/appointments";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import MultipleSelectChip from "./MultipleSelectChip";
+import { getPatients } from "../api/patients";
 
 const style = {
   position: "absolute",
@@ -17,6 +18,13 @@ const style = {
 
 function Appointment({ appointment, handleDelete }) {
   const [appointmentDetails, setAppointmentDetails] = useState(appointment);
+  const [patients, setPatients] = useState([]);
+
+  useEffect(() => {
+    getPatients().then((patients) => {
+      setPatients(patients.map((patient) => patient.name));
+    });
+  }, []);
 
   return (
     <Box
@@ -58,7 +66,7 @@ function Appointment({ appointment, handleDelete }) {
       </Box>
       <MultipleSelectChip
         label={"Patients"}
-        choices={["Patient One", "Patient Two", "Patient Three"]}
+        choices={patients}
         value={appointmentDetails.patients}
         onChange={(event) =>
           setAppointmentDetails((prev) => ({
