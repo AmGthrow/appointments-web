@@ -16,9 +16,7 @@ npm run dev
 
 ## Calendar Navigation
 
-
-https://github.com/AmGthrow/appointments-web/assets/54239564/797172fd-b6f4-4b2d-90c3-6c0eace099ed
-
+<https://github.com/AmGthrow/appointments-web/assets/54239564/797172fd-b6f4-4b2d-90c3-6c0eace099ed>
 
 - On the top right, press "Today" to jump to today's date
 - On the top right, press the left/right keys to navigate between months/days/weeks
@@ -28,11 +26,10 @@ https://github.com/AmGthrow/appointments-web/assets/54239564/797172fd-b6f4-4b2d-
 
 ## Adding an appointment
 
+<https://github.com/AmGthrow/appointments-web/assets/54239564/5bf7d55b-6845-4891-923c-2f8b55cc1e47>
 
-https://github.com/AmGthrow/appointments-web/assets/54239564/8712a031-8b07-448f-b0e2-af551b3d96e1
-
-
-1. On the bottom right, press the "Add Appointment" button
+1. Click on any portion of the calendar that doesn't have an existing appointment
+   - Alternatively, press the "Add Appointment" button on the bottom right to create an appoinment for the _current_ time, not the time you click on
 2. Select the start time and end time of the appointment (By default, timestamped to current time)
 3. Select the patients booked for the appointment. Multiple patients may be booked (By default, no patients are set)
 4. Write any comments for the appointment (By default, comments are empty)
@@ -48,9 +45,7 @@ The backend server will return an error for the following conditions
 
 ## Editing an appointment
 
-
-https://github.com/AmGthrow/appointments-web/assets/54239564/f1589c07-c4c7-4e54-9ec2-87792fe3da5d
-
+<https://github.com/AmGthrow/appointments-web/assets/54239564/f1589c07-c4c7-4e54-9ec2-87792fe3da5d>
 
 1. In the calendar, click on an existing appointment to be edited
 2. Modify the start & end time of the appointment
@@ -68,16 +63,14 @@ The backend server will return an error for the following conditions
 
 ## Deleting an appointment
 
-
-https://github.com/AmGthrow/appointments-web/assets/54239564/db645c7f-77a8-4356-b64f-42d1fbe35f2d
-
+<https://github.com/AmGthrow/appointments-web/assets/54239564/db645c7f-77a8-4356-b64f-42d1fbe35f2d>
 
 1. In the calendar, click on an existing appointment to be edited
 2. On the bottom left, press the "Delete" button
 
 ## Filtering appointments by date
 
-https://github.com/AmGthrow/appointments-web/assets/54239564/eae9c7f5-6376-4aed-a1ab-0e818dd48d43
+<https://github.com/AmGthrow/appointments-web/assets/54239564/eae9c7f5-6376-4aed-a1ab-0e818dd48d43>
 
 1. At the bottom, press the calendar on the "Filter from this date..." picker
 2. Select a date. Appointments later than this date will be included

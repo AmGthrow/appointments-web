@@ -3,6 +3,7 @@ import { getAppointments } from "../api/appointments";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import AppointmentModal from "./AppointmentDetails";
 import AddAppointmentButton from "./AddAppointmentButton";
 import dayjs from "dayjs";
@@ -65,6 +66,20 @@ function Calendar() {
     setAppointmentFocused(newAppointment);
     setViewAssessmentDetails(true);
   }
+  function handleClickEmptyDate(info) {
+    const now = new Date(info.dateStr);
+    now.setSeconds(0);
+    now.setMilliseconds(0);
+    const appointmentDuration = 1000 * 60 * 60; // 1 hour from now
+    const newAppointment = {
+      start_time: dayjs(now),
+      end_time: dayjs(now.getTime() + appointmentDuration),
+      patients: [],
+      comments: "",
+    };
+    setAppointmentFocused(newAppointment);
+    setViewAssessmentDetails(true);
+  }
 
   function handleClearDateFilters() {
     setAppointmentStartDate();
@@ -113,13 +128,14 @@ function Calendar() {
       </Box>
       <FullCalendar
         schedulerLicenseKey={"CC-Attribution-NonCommercial-NoDerivatives"}
-        plugins={[dayGridPlugin, timeGridPlugin]}
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView={"timeGridWeek"}
         headerToolbar={{
           start: "today prev,next",
           center: "title",
           end: "dayGridMonth,timeGridWeek,timeGridDay",
         }}
+        dateClick={handleClickEmptyDate}
         allDaySlot={false}
         height="95vh"
         events={appointments.map((appointment) => ({
