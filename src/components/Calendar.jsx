@@ -53,6 +53,8 @@ function Calendar() {
 
   function handleAddAppointment() {
     const now = new Date();
+    now.setSeconds(0);
+    now.setMilliseconds(0);
     const appointmentDuration = 1000 * 60 * 60; // 1 hour from now
     const newAppointment = {
       start_time: dayjs(now),
