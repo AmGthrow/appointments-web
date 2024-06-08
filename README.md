@@ -77,9 +77,7 @@ https://github.com/AmGthrow/appointments-web/assets/54239564/db645c7f-77a8-4356-
 
 ## Filtering appointments by date
 
-
-https://github.com/AmGthrow/appointments-web/assets/54239564/f07a7b09-9679-4093-800b-67d111b818eb
-
+https://github.com/AmGthrow/appointments-web/assets/54239564/eae9c7f5-6376-4aed-a1ab-0e818dd48d43
 
 1. At the bottom, press the calendar on the "Filter from this date..." picker
 2. Select a date. Appointments later than this date will be included
