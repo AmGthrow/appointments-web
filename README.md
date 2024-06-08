@@ -16,6 +16,10 @@ npm run dev
 
 ## Calendar Navigation
 
+
+https://github.com/AmGthrow/appointments-web/assets/54239564/797172fd-b6f4-4b2d-90c3-6c0eace099ed
+
+
 - On the top right, press "Today" to jump to today's date
 - On the top right, press the left/right keys to navigate between months/days/weeks
 - On the top left, press "month" to see all appointments for a given month
@@ -23,6 +27,10 @@ npm run dev
 - On the top left, press "day" to see all appointments for a given day
 
 ## Adding an appointment
+
+
+https://github.com/AmGthrow/appointments-web/assets/54239564/8712a031-8b07-448f-b0e2-af551b3d96e1
+
 
 1. On the bottom right, press the "Add Appointment" button
 2. Select the start time and end time of the appointment (By default, timestamped to current time)
@@ -40,6 +48,10 @@ The backend server will return an error for the following conditions
 
 ## Editing an appointment
 
+
+https://github.com/AmGthrow/appointments-web/assets/54239564/f1589c07-c4c7-4e54-9ec2-87792fe3da5d
+
+
 1. In the calendar, click on an existing appointment to be edited
 2. Modify the start & end time of the appointment
 3. Modify the patients booked for the appointment. Multiple patients may be booked
@@ -56,10 +68,18 @@ The backend server will return an error for the following conditions
 
 ## Deleting an appointment
 
+
+https://github.com/AmGthrow/appointments-web/assets/54239564/db645c7f-77a8-4356-b64f-42d1fbe35f2d
+
+
 1. In the calendar, click on an existing appointment to be edited
 2. On the bottom left, press the "Delete" button
 
 ## Filtering appointments by date
+
+
+https://github.com/AmGthrow/appointments-web/assets/54239564/f07a7b09-9679-4093-800b-67d111b818eb
+
 
 1. At the bottom, press the calendar on the "Filter from this date..." picker
 2. Select a date. Appointments later than this date will be included
